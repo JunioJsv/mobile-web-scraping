@@ -1,5 +1,5 @@
 import puppeteer from 'puppeteer'
-import { AppScrapingInformations, AppUsersRatting } from '../@types/app-scraping-informations';
+import { AppScrapingInformations, AppUsersRatting as AppUserRatting } from '../@types/app-scraping-informations';
 
 const target = 'https://play.google.com/store/apps/details'
 
@@ -22,7 +22,7 @@ const getInformationsByPackage = async (browser: puppeteer.Browser, _package: st
 
     await page.goto(`${target}?id=${_package}&showAllReviews=true`)
 
-    let rattings: AppUsersRatting[] = await page.evaluate(() => {
+    let rattings: AppUserRatting[] = await page.evaluate(() => {
         let elements: Element[] = Array.from(document.querySelectorAll('div[jsname="fk8dgd"] > div').values())
         return elements.map(element => {
             let userName = element.querySelector('span.X43Kjb')?.innerHTML ?? ''
@@ -58,7 +58,7 @@ const service: GooglePlayScrapingService = {
 }
 
 export type {
-    AppScrapingInformations, GooglePlayScrapingService
+    GooglePlayScrapingService
 }
 
 export default service;

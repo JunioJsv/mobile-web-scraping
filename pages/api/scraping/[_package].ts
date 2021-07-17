@@ -1,5 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import googlePlayScrapingService, { AppScrapingInformations } from "../../../lib/services/googleplay-scraping-service";
+import { AppScrapingInformations } from "../../../lib/@types/app-scraping-informations";
+import googlePlayScrapingService from "../../../lib/services/googleplay-scraping-service";
 
 
 const handler = async (req: NextApiRequest, res: NextApiResponse<AppScrapingInformations[]>) => {
