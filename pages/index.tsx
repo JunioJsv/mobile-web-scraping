@@ -3,7 +3,7 @@ import Head from 'next/head'
 import React from 'react';
 import { AppScrapingInformations } from '../lib/@types/app-scraping-informations';
 import GooglePlayScrapingService from '../lib/services/googleplay-scraping-service'
-import styles from '../styles/index.module.scss'
+import { exportAppScrapingInformations } from '../lib/utils';
 
 type HomeProps = {
   googleplay: AppScrapingInformations[]
@@ -11,33 +11,19 @@ type HomeProps = {
 
 const Home: React.FC<HomeProps> = ({ googleplay }) => {
   return (
-    <div className={styles.container}>
+    <div>
       <Head>
         <title>Mobile Web Scrapping</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <main>
-        <div>
-          {
-            googleplay.map((informations, index) => {
-              return (
-                <ul key={index}>
-                  <li>{informations.name}</li>
-                  <li>Nota {informations.ratting}☆</li>
-                  {informations.rattings.map((ratting, index) => {
-                    return (
-                      <ul key={index}>
-                        <li>Usuário {ratting.userName} - {ratting.ratting}☆</li>
-                        <p>{ratting.suggestion}</p>
-                      </ul>
-                    )
-                  })}
-                </ul>
-              )
-            })
-          }
-        </div>
+        <h1>Mobile Web Scrapping</h1>
+        <button onClick={() => {
+          exportAppScrapingInformations(googleplay)
+        }}>
+          <span>GooglePlay</span>
+        </button>
       </main>
 
       <footer>
@@ -49,7 +35,7 @@ const Home: React.FC<HomeProps> = ({ googleplay }) => {
 
 export const getStaticProps: GetStaticProps<HomeProps> = async (context) => {
   let googleplayTargets = process.env.GOOGLEPLAY_DEFAULT_SCRAPING_TARGETS?.split(',') ?? []
-  let googleplay = await GooglePlayScrapingService.getInformations(googleplayTargets)
+  let googleplay = await new GooglePlayScrapingService().getAppInformations(googleplayTargets)
   return {
     props: {
       googleplay

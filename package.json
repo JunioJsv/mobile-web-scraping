@@ -10,6 +10,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "json2csv": "^5.0.6",
     "next": "11.0.1",
     "puppeteer": "^10.1.0",
     "react": "17.0.2",
@@ -17,6 +18,7 @@
     "sass": "^1.35.2"
   },
   "devDependencies": {
+    "@types/json2csv": "^5.0.3",
     "@types/puppeteer": "^5.4.4",
     "@types/react": "17.0.14",
     "eslint": "7.30.0",
