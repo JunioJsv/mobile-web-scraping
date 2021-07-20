@@ -54,7 +54,9 @@ class GooglePlayScrapingService {
     };
 
     async getAppInformations(_packages: string[]): Promise<AppScrapingInformations[]> {
-        const browser: puppeteer.Browser = await puppeteer.launch();
+        const browser: puppeteer.Browser = await puppeteer.launch({
+            args: ['--no-sandbox', '--disable-setuid-sandbox'],
+        });
         const result = await Promise.all(_packages.map((_package) =>
             this.getInformationsByAppPackage(browser, _package)
         ));
